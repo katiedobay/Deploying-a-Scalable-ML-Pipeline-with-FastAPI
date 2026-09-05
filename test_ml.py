@@ -1,28 +1,36 @@
 import pytest
-# TODO: add necessary import
+import pandas as pd
+
+from ml.model import compute_model_metrics
 
 # TODO: implement the first test. Change the function name and input as needed
-def test_one():
+def test_dataframe_not_empty():
     """
-    # add description for the first test
+    Verify that the census dataset contains records.
     """
-    # Your code here
-    pass
+    df = pd.read_csv("data/census.csv")
+    assert len(df) > 0
 
 
 # TODO: implement the second test. Change the function name and input as needed
-def test_two():
+def test_compute_model_metrics():
     """
-    # add description for the second test
+    Verify precision, recall, and F1 are between 0 and 1.
     """
-    # Your code here
-    pass
+    y_true = [1, 1, 0, 0]
+    y_pred = [1, 0, 0, 0]
+
+    precision, recall, f1 = compute_model_metrics(y_true, y_pred)
+
+    assert 0 <= precision <= 1
+    assert 0 <= recall <= 1
+    assert 0 <= f1 <= 1
 
 
 # TODO: implement the third test. Change the function name and input as needed
-def test_three():
+def test_salary_column_exists():
     """
-    # add description for the third test
+    Verify the target column exists in the census dataset.
     """
-    # Your code here
-    pass
+    df = pd.read_csv("data/census.csv")
+    assert "salary" in df.columns
